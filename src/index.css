@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Micro+5&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+      @apply font-poppins ;
+    }
+}
+@layer components {
+  /* Blur Button */
+  .blur-btn {
+    @apply px-4 py-[10px] rounded-lg border border-[rgba(255,255,255,0.20)] 
+           bg-gradient-to-br from-[rgba(255,255,255,0.15)] to-[rgba(255,255,255,0.02)] 
+           backdrop-blur-sm;
+  }
+  .task-modal {
+    @apply bg-task-modal shadow-task-modal backdrop-blur-task-modal;
+  }
+  
+}
+
+
