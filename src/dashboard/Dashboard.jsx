@@ -10,32 +10,32 @@ const Dashboard = () => {
         setDropdown((showDropdown) => !showDropdown);
     }
 
-    const [activeTab, setActiveTab] = useState('Home');
+    const [activeTab, setActiveTab] = useState('Tasks');
     const renderComponent = () => {
         switch (activeTab) {
-            case 'Home':
-                return < Home />;
+            // case 'Home':
+            //     return < Home />;
             case 'Tasks':
                 return <Tasks />;
             default:
-                return <Home />;
+                return <Tasks />;
         }
     }
 
     return (
         <div className="min-h-screen flex bg-black">
             {/* Sidebar */}
-            <aside className="w-64 bg-black hidden md:block shadow-custom-light">
+            <aside className="w-64 bg-black hidden md:block shadow-md">
                 <div className="p-4">
                     <img src={logo} alt="Dashboard Logo" className="w-[160px]" />
                 </div>
                 <nav>
                     <ul>
-                        <li className={`px-4 py-2 text-xl transition-all cursor-pointer ${activeTab === "Home" ? 'bg-brand text-white mx-2 rounded-xl' : 'text-nextusGray'}`}
+                        {/* <li className={`px-4 py-2 text-xl transition-all cursor-pointer ${activeTab === "Home" ? 'bg-brand text-white mx-2 rounded-xl' : 'text-nextusGray'}`}
                             onClick={() => setActiveTab('Home')}
                         >
                             <a className="block">Home</a>
-                        </li>
+                        </li> */}
                         <li className={`px-4 py-2 text-xl transition-all cursor-pointer ${activeTab === "Tasks" ? 'bg-brand text-white mx-2 rounded-xl' : 'text-nextusGray'}`}
                             onClick={() => setActiveTab('Tasks')}
 
@@ -48,10 +48,10 @@ const Dashboard = () => {
 
             {/* Mobile Sidebar */}
             <aside className="bg-black shadow-md w-full md:hidden fixed bottom-0 left-0">
-                <nav className="flex justify-around">
-                    <a href="#" className="p-4 text-blue-500 hover:text-white transition-all">Home</a>
-                    <a href="#" className="p-4 text-nextusGray hover:text-white transition-all">Logout</a>
-                </nav>
+                <div className="flex justify-around">
+                    <button onClick={() => setActiveTab('Tasks')} className="p-4 text-blue-500 hover:text-white transition-all">Tasks</button>
+                    <button className="p-4 text-nextusGray hover:text-white transition-all">Logout</button>
+                </div>
             </aside>
 
             {/* Main Content */}

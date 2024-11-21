@@ -1,15 +1,12 @@
-import React from "react"
-import AdminLogin from "./admin/AdminLogin"
-import Dashboard from "./dashboard/Dashboard"
+import React from "react";
+import { AllRoutes } from "./AllRoutes/AllRoutes";
 
 function App() {
-
   return (
     <>
-    {/* <AdminLogin />       */}
-    <Dashboard />
+      <AllRoutes/>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
