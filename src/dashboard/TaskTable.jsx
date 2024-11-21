@@ -6,70 +6,70 @@ export const TaskTable = () => {
     {
       task: "Anshul",
       desc: "no description",
-      task: "task1",
+      taskType: "task1",
       point: 100,
     },
     {
       task: "Smriti",
       desc: "no description",
-      task: "task2",
+      taskType: "task2",
       point: 1000,
     },
     {
       task: "Himanshu",
       desc: "no description",
-      task: "task3",
+      taskType: "task3",
       point: 2000,
     },
     {
       task: "Anshul",
       desc: "no description",
-      task: "task1",
+      taskType: "task1",
       point: 100,
     },
     {
       task: "Smriti",
       desc: "no description",
-      task: "task2",
+      taskType: "task2",
       point: 1000,
     },
     {
       task: "Himanshu",
       desc: "no description",
-      task: "task3",
+      taskType: "task3",
       point: 2000,
     },
     {
       task: "Anshul",
       desc: "no description",
-      task: "task1",
+      taskType: "task1",
       point: 100,
     },
     {
       task: "Smriti",
       desc: "no description",
-      task: "task2",
+      taskType: "task2",
       point: 1000,
     },
     {
       task: "Himanshu",
       desc: "no description",
-      task: "task3",
+      taskType: "task3",
       point: 2000,
     },
   ];
 
   const [isEditTaskModal, setIsEditTaskModal] = useState(false)
   const [taskData, setTaskData] = useState({
-    name:"",
-    desc:"",
     task:"",
+    desc:"",
+    taskType:"",
     point:""
   })
 
   const handleEditBtn = (e)=>{
     setIsEditTaskModal(true)
-    setTaskData({task:e.task,desc:e.desc,task:e.task,point:e.point})
+    setTaskData({task:e.task,desc:e.desc,taskType:e.taskType,point:e.point})
   }
 
   return (
