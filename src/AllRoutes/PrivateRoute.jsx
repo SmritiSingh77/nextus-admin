@@ -3,7 +3,7 @@ import { Navigate, useLocation } from "react-router-dom";
 
 export const PrivateRoute = ({children}) => {
 
-  const isAuth = false;
+  const isAuth = localStorage.getItem("token")
 
   const location = useLocation()
 
