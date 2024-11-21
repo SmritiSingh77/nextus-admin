@@ -1,79 +1,54 @@
 import React, { useState } from "react";
 import { EditTaskModal } from "./EditTaskModal";
+import imgTemp from '../assets/profile-pic.webp'
+import imgTemp2 from '../assets/bird.webp'
+import imgTemp3 from '../assets/logo.webp'
 
 export const TaskTable = () => {
   const data = [
     {
-      task: "Anshul",
-      desc: "no description",
-      taskType: "task1",
-      point: 100,
+      title: 'hello world one',
+      description: 'hello description one',
+      tasktype: 'dailytask1',
+      imgFile: imgTemp,
+      link: 'www.google.com',
+      points: '100000',
     },
     {
-      task: "Smriti",
-      desc: "no description",
-      taskType: "task2",
-      point: 1000,
+      title: 'hello world two',
+      description: 'hello description two',
+      tasktype: 'dailytask2',
+      imgFile: imgTemp2,
+      link: 'www.google.com',
+      points: '200000',
     },
     {
-      task: "Himanshu",
-      desc: "no description",
-      taskType: "task3",
-      point: 2000,
-    },
-    {
-      task: "Anshul",
-      desc: "no description",
-      taskType: "task1",
-      point: 100,
-    },
-    {
-      task: "Smriti",
-      desc: "no description",
-      taskType: "task2",
-      point: 1000,
-    },
-    {
-      task: "Himanshu",
-      desc: "no description",
-      taskType: "task3",
-      point: 2000,
-    },
-    {
-      task: "Anshul",
-      desc: "no description",
-      taskType: "task1",
-      point: 100,
-    },
-    {
-      task: "Smriti",
-      desc: "no description",
-      taskType: "task2",
-      point: 1000,
-    },
-    {
-      task: "Himanshu",
-      desc: "no description",
-      taskType: "task3",
-      point: 2000,
-    },
+      title: 'hello world three',
+      description: 'hello description three',
+      tasktype: 'dailytask3',
+      imgFile: imgTemp3,
+      link: 'www.google.com',
+      points: '300000',
+    }
   ];
 
-  const [isEditTaskModal, setIsEditTaskModal] = useState(false)
+  const [isModalOpen, setisModalOpen] = useState(false)
   const [taskData, setTaskData] = useState({
-    task: "",
-    desc: "",
-    taskType: "",
-    point: ""
+    title: '',
+    description: '',
+    tasktype: 'dailytask',
+    imgFile: null,
+    link: '',
+    points: '',
   })
 
   const handleEditBtn = (e) => {
-    setIsEditTaskModal(true)
-    setTaskData({ task: e.task, desc: e.desc, taskType: e.taskType, point: e.point })
+    setisModalOpen(!isModalOpen)
+    setTaskData({ title: e.title, description: e.description, tasktype: e.tasktype, imgFile: e.imgFile, link: e.link, points: e.points })
   }
 
   return (
-    <div className="border h-[70vh] bg-white rounded-lg">
+    <div className="border h-[70vh] bg-white rounded-lg p-2">
       <div className="overflow-y-auto h-full">
         <table className="w-full text-center table-fixed border-collapse">
           <thead className="border-b sticky top-0 bg-white">
@@ -91,12 +66,12 @@ export const TaskTable = () => {
                 key={index}
                 className="hover:bg-gray-100 text-gray-600 text-sm"
               >
-                <td className="px-4 py-4 border-t ">{ele.task}</td>
-                <td className="px-4 py-4 border-t ">{ele.desc}</td>
-                <td className="px-4 py-4 border-t ">{ele.taskType}</td>
-                <td className="px-4 py-4 border-t ">{ele.point}</td>
+                <td className="px-4 py-4 border-t ">{ele.title}</td>
+                <td className="px-4 py-4 border-t ">{ele.description}</td>
+                <td className="px-4 py-4 border-t ">{ele.tasktype}</td>
+                <td className="px-4 py-4 border-t ">{ele.points}</td>
                 <td className="px-4 py-4 border-t ">
-                  <button className="border py-1 px-2 bg-blue-600 text-white rounded" onClick={() => handleEditBtn(ele)}>
+                  <button className="border py-1 px-2 bg-brand text-white rounded" onClick={() => handleEditBtn(ele)}>
                     Edit
                   </button>
                 </td>
@@ -105,7 +80,7 @@ export const TaskTable = () => {
           </tbody>
         </table>
       </div>
-      {isEditTaskModal && <EditTaskModal setIsEditTaskModal={setIsEditTaskModal} taskData={taskData} setTaskData={setTaskData} />}
+      {isModalOpen && <EditTaskModal handleEditBtn={handleEditBtn} setisModalOpen={setisModalOpen} taskData={taskData} setTaskData={setTaskData} />}
     </div>
   );
 };
