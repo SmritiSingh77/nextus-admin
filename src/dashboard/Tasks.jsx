@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { TaskTable } from './TaskTable';
 import AddTasks from './AddTasks';
 
 function Tasks() {
@@ -20,7 +21,9 @@ function Tasks() {
                     </svg>
                     Add Task</button>
             </div>
-
+            <div className='fixed w-[80%] pl-3 top-48'>
+                <TaskTable/>
+            </div>
             {
                 isModalOpen && (
                    <AddTasks toggleModal={toggleModal} setIsModalOpen={setIsModalOpen} /> 
