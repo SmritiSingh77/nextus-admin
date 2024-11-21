@@ -21,7 +21,7 @@ function Tasks() {
                     </svg>
                     Add Task</button>
             </div>
-            <div className='fixed w-[80%] pl-3 top-48'>
+            <div className='mt-[-25px] mx-auto w-[90%]'>
                 <TaskTable/>
             </div>
             {

@@ -54,7 +54,7 @@ export const EditTaskModal = ({
             4<label className="font-medium text-brand">Task Type:</label>
             <select
               className="w-full outline-none rounded-lg text-white border bg-transparent p-2 mt-2 mb-3"
-              name="task"
+              name="taskType"
               onChange={(e) => handleChange(e)}
             >
               <option value="dailytask">Daily Tasks</option>
