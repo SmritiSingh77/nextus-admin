@@ -34,6 +34,7 @@ export const TaskTable = () => {
 
   const [isModalOpen, setisModalOpen] = useState(false)
   const [taskData, setTaskData] = useState({
+
     title: '',
     description: '',
     tasktype: 'dailytask',
@@ -45,6 +46,7 @@ export const TaskTable = () => {
   const handleEditBtn = (e) => {
     setisModalOpen(!isModalOpen)
     setTaskData({ title: e.title, description: e.description, tasktype: e.tasktype, imgFile: e.imgFile, link: e.link, points: e.points })
+
   }
 
   return (
