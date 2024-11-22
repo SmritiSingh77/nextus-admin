@@ -3,9 +3,11 @@ import logo from '../assets/logo.webp';
 import profile from '../assets/profile-pic.webp';
 import Home from './Home';
 import Tasks from './Tasks';
+import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
     const [showDropdown, setDropdown] = useState(false);
+    const navigate = useNavigate();
     const handleDropdown = () => {
         setDropdown((showDropdown) => !showDropdown);
     }
@@ -20,6 +22,11 @@ const Dashboard = () => {
             default:
                 return <Tasks />;
         }
+    }
+
+    const handleLogOut = ()=>{
+        localStorage.removeItem("accessToken")
+        navigate("/login", { replace: true });
     }
 
     return (
@@ -92,6 +99,7 @@ const Dashboard = () => {
                                         <button
                                             className="block px-4 py-2 rounded-md text-sm text-nextusGray hover:bg-brand hover:text-white w-full text-left"
                                             role="menuitem"
+                                            onClick={handleLogOut}
                                         >
                                             Log out
                                         </button>

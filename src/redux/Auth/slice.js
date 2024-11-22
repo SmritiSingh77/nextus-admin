@@ -16,7 +16,9 @@ const adminLoginSlice = createSlice({
     builder.addCase(adminLogin.fulfilled,(state, action)=>{
         state.isLoading = false,
         state.isAuth = true
-        localStorage.setItem("token", action.payload.access);
+        localStorage.setItem("accessToken", action?.payload?.access);
+        console.log("action.payload.access",action.payload.access);
+        
     })
     builder.addCase(adminLogin.rejected,(state, action)=>{
         state.isLoading = false,
