@@ -1,18 +1,52 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 function AddTasks({ toggleModal }) {
     const [formData, setFormData] = useState({
         title: '',
         description: '',
         tasktype: 'dailytask',
+        imgFile: null,
+        link: '',
         points: '',
     });
 
     const [errors, setErrors] = useState({});
+    const fileInputRef = useRef(null);
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+        const { name, value, type } = e.target;
+
+        // Handle file input separately
+        if (type === 'file') {
+            const file = e.target.files[0];
+            if (file) {
+                const validExtensions = ['jpg', 'jpeg', 'png', 'webp'];
+                const fileExtension = file.name.split('.').pop().toLowerCase();
+                const fileSizeInKB = file.size / 1024;
+
+                if (!validExtensions.includes(fileExtension)) {
+                    setErrors((prev) => ({
+                        ...prev,
+                        imgFile: 'File type must be jpg, jpeg, png, or webp',
+                    }));
+                    return;
+                }
+
+                if (fileSizeInKB > 100) {
+                    setErrors((prev) => ({
+                        ...prev,
+                        imgFile: 'File size must be under 100KB',
+                    }));
+                    return;
+                }
+
+                setFormData((prev) => ({ ...prev, imgFile: file }));
+                setErrors((prev) => ({ ...prev, imgFile: '' })); // Clear errors if valid
+            }
+        } else {
+            // Update other fields
+            setFormData((prev) => ({ ...prev, [name]: value }));
+        }
     };
 
     const validateForm = () => {
@@ -35,6 +69,15 @@ function AddTasks({ toggleModal }) {
             errors.points = 'Points should be a positive number';
         }
 
+        const urlRegex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?$/;
+        if (!formData.link || !urlRegex.test(formData.link)) {
+            errors.link = 'Please enter a valid URL';
+        }
+
+        if (!formData.imgFile) {
+            errors.imgFile = 'Image is required';
+        }
+
         return errors;
     };
 
@@ -44,7 +87,7 @@ function AddTasks({ toggleModal }) {
             setErrors(validationErrors);
         } else {
             setErrors({});
-            console.log(formData);
+            console.log('Form Data:', formData);
             toggleModal();
         }
     };
@@ -55,7 +98,6 @@ function AddTasks({ toggleModal }) {
                 <div className="fixed inset-0 transition-opacity task-modal">
                     <div className="absolute inset-0" />
                 </div>
-                <span className="hidden sm:inline-block sm:align-middle sm:h-screen">&#8203;</span>
                 <div
                     className="inline-block align-center bg-black border border-nextusGray rounded-xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
                     role="dialog"
@@ -63,8 +105,8 @@ function AddTasks({ toggleModal }) {
                     aria-labelledby="modal-headline"
                 >
                     <h2 className="text-white font-semibold text-3xl text-center pt-5">Add Task Details</h2>
-                    <div className="bg-black px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                        <div className='mt-4'>
+                    <div className="bg-black px-4 pt-5 pb-4 sm:p-6 sm:pb-4 h-[500px] overflow-auto">
+                        <div className="mt-4">
                             <label className="font-medium text-brand">Title:</label>
                             <input
                                 type="text"
@@ -73,10 +115,10 @@ function AddTasks({ toggleModal }) {
                                 onChange={handleChange}
                                 className="w-full outline-none rounded-lg text-white border bg-transparent p-2 mt-3 mb-2"
                             />
-                            {errors.title && <span className="text-red-500 text-sm float-end">{errors.title}</span>}
+                            {errors.title && <span className="text-red-500 text-sm">{errors.title}</span>}
                         </div>
 
-                        <div className='mt-4'>
+                        <div className="mt-4">
                             <label className="font-medium text-brand">Description:</label>
                             <textarea
                                 className="w-full outline-none rounded-lg text-white border bg-transparent p-2 mt-3 mb-2"
@@ -84,10 +126,10 @@ function AddTasks({ toggleModal }) {
                                 value={formData.description}
                                 onChange={handleChange}
                             />
-                            {errors.description && <span className="text-red-500 text-sm float-end">{errors.description}</span>}
+                            {errors.description && <span className="text-red-500 text-sm">{errors.description}</span>}
                         </div>
 
-                        <div className='mt-4'>
+                        <div className="mt-4">
                             <label className="font-medium text-brand">Task Type:</label>
                             <select
                                 name="tasktype"
@@ -104,7 +146,31 @@ function AddTasks({ toggleModal }) {
                             </select>
                         </div>
 
-                        <div className='mt-4'>
+                        <div className="mt-4">
+                            <label className="font-medium text-brand">Upload Image</label>
+                            <input
+                                type="file"
+                                ref={fileInputRef}
+                                name="imgFile"
+                                className="w-full outline-none rounded-lg text-white border bg-transparent p-2 mt-3 mb-2"
+                                onChange={handleChange}
+                            />
+                            {errors.imgFile && <span className="text-red-500 text-sm">{errors.imgFile}</span>}
+                        </div>
+
+                        <div className="mt-4">
+                            <label className="font-medium text-brand">URL</label>
+                            <input
+                                type="text"
+                                name="link"
+                                value={formData.link}
+                                onChange={handleChange}
+                                className="w-full outline-none rounded-lg text-white border bg-transparent p-2 mt-3 mb-2"
+                            />
+                            {errors.link && <span className="text-red-500 text-sm">{errors.link}</span>}
+                        </div>
+
+                        <div className="mt-4">
                             <label className="font-medium text-brand">Points:</label>
                             <input
                                 type="number"
@@ -113,7 +179,7 @@ function AddTasks({ toggleModal }) {
                                 onChange={handleChange}
                                 className="w-full outline-none rounded-lg text-white border bg-transparent p-2 mt-3 mb-2"
                             />
-                            {errors.points && <span className="text-red-500 text-sm float-end">{errors.points}</span>}
+                            {errors.points && <span className="text-red-500 text-sm">{errors.points}</span>}
                         </div>
                     </div>
                     <div className="bg-black px-4 py-5 text-right flex gap-8 justify-center w-full mt-3">
